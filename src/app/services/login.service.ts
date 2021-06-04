@@ -8,7 +8,12 @@ import { Role } from '../model/role.enum';
 import { ReturnedUser } from '../model/returnedUser';
 import { AuthService } from './auth.service';
 
-const cudOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
+const cudOptions = { headers: new HttpHeaders({ 
+												'Content-Type': 'application/json',
+												"Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+											})};
 
 @Injectable({
   providedIn: 'root'
