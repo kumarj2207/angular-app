@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Employee } from '../model/employee';
-import { EmployeeRequest } from '../model/EmployeeRequest';
+//import { EmployeeRequest } from '../model/EmployeeRequest';
 import { EmployeeService } from './employee.service';
 import { Credit } from '../model/credit';
 import { RegisteredUser } from '../model/registeredUser';
@@ -33,7 +33,8 @@ export class HttpClientEmployeeService extends EmployeeService {
   }
  
   addEmployee(name: string, location: string, email: string, mobile: string): Observable<Employee> {
-    let emp : EmployeeRequest = new EmployeeRequest(name, location, email, mobile);
+    //let emp : EmployeeRequest = new EmployeeRequest(name, location, email, mobile);
+	let emp = {"name":name, "location":location, "email":email, "mobile":mobile};
     return this.http.post<Employee>(this.employeesUrl + '/create', emp, cudOptions).pipe(
       catchError(this.handleError)
     );
