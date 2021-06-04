@@ -1,0 +1,80 @@
+        <table mat-table [dataSource]="measurements" class="mat-elevation-z8">
+  
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->               
+
+          <!-- Date Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let reg"> {{reg.measurementDate | date : 'yyyy-MM-dd'}}</td>
+          </ng-container>                
+        
+          <!-- Name Column -->
+          <ng-container matColumnDef="biceps">
+            <th mat-header-cell *matHeaderCellDef>Biceps</th>
+            <td mat-cell *matCellDef="let reg"> {{reg.biceps}}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="chest">
+            <th mat-header-cell *matHeaderCellDef> Chest </th>
+            <td mat-cell *matCellDef="let reg"> {{reg.chest}} </td>
+          </ng-container>        
+  
+          <ng-container matColumnDef="forearms">
+            <th mat-header-cell *matHeaderCellDef> Forearms </th>
+            <td mat-cell *matCellDef="let reg"> {{reg.forearms}} </td>
+          </ng-container>
+          
+          <!-- Height Column -->
+          <ng-container matColumnDef="height">
+            <th mat-header-cell *matHeaderCellDef> Height </th>
+            <td mat-cell *matCellDef="let reg"> {{reg.height | number : '1.1-2' : locale}} </td>
+          </ng-container>        
+        
+          <!-- Weight Column -->
+          <ng-container matColumnDef="weight">
+            <th mat-header-cell *matHeaderCellDef> Weight </th>
+            <td mat-cell *matCellDef="let reg"> {{reg.weight | number : '1.1-2' : locale}} </td>
+          </ng-container>
+  
+          <!-- BMI Column -->
+          <ng-container matColumnDef="bmi">
+            <th mat-header-cell *matHeaderCellDef> BMI </th>
+            <td mat-cell *matCellDef="let reg"> {{reg.bmi}} </td>
+          </ng-container>
+          
+          <!-- Joining Column -->
+          <ng-container matColumnDef="legs">
+            <th mat-header-cell *matHeaderCellDef> Legs </th>
+            <td mat-cell *matCellDef="let reg"> {{reg.legs}} </td>
+          </ng-container>        
+        
+          <!-- Medical Status Column -->
+          <ng-container matColumnDef="shoulders">
+            <th mat-header-cell *matHeaderCellDef> Shoulders </th>
+            <td mat-cell *matCellDef="let reg"> {{reg.shoulders}} </td>
+          </ng-container>
+  
+          <!-- Pregnent Column -->
+          <ng-container matColumnDef="thighs">
+            <th mat-header-cell *matHeaderCellDef> Thighs </th>
+            <td mat-cell *matCellDef="let reg"> {{reg.thighs}} </td>
+          </ng-container>  
+
+          <!-- Pregnent Column -->
+          <ng-container matColumnDef="waist">
+            <th mat-header-cell *matHeaderCellDef> Waist </th>
+            <td mat-cell *matCellDef="let reg"> {{reg.waist}} </td>
+          </ng-container>            
+          
+          <!-- Action Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let reg"> 
+              <button mat-raised-button color="primary">Update</button>
+            </td>
+          </ng-container>        
+        
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>

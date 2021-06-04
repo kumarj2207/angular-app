@@ -1,0 +1,29 @@
+<app-error [error]="error" [errorMessage]="errorMessage"></app-error>
+<div>
+    <div class="container">
+       <h1>Login</h1>
+       <form (ngSubmit)="!f.invalid && login()" #f="ngForm">
+        <table class="table">
+        <tr>
+            <td>
+                <label>User Name:</label>&nbsp;
+                <input type="text" id="userName" name="userName" class="form-control" [(ngModel)]="userName" 
+                    required placeholder="Please enter valid user name."
+                    >
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Password:</label>&nbsp;<input type="password" id="password" name="password" class="form-control" [(ngModel)] = "password" required>
+            </td>
+        </tr>            
+        <tr>
+            <td>
+                <button type="submit" mat-raised-button color="primary" [disabled]="!f.valid">LOGIN</button>
+            </td>
+        </tr>
+        
+        </table>
+        </form>       
+    </div>
+</div>

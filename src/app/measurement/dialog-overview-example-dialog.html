@@ -1,0 +1,39 @@
+<h1 mat-dialog-title>Upload Your Measurements</h1>
+<div mat-dialog-content>
+    <div *ngIf="currentFile" class="progress">
+        <div
+          class="progress-bar progress-bar-info progress-bar-striped"
+          role="progressbar"
+          attr.aria-valuenow="{{ progress }}"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          [ngStyle]="{ width: progress + '%' }"
+        >
+          {{ progress }}%
+          <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+        </div>
+      </div>    
+      
+    <table>
+        <tr>
+          <td>If you want, you can download sample</td>
+          <td>
+            <button mat-raised-button color="primary" (click)="download()">Excel sheet</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Please upload excel sheet&nbsp;<input type="file" (change)="selectFile($event)"/></td>
+          <td>
+            <button mat-raised-button color="primary" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
+          </td>
+        </tr>          
+    </table>
+    <strong>{{ message }}</strong>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="onNoClick()">Close</button>
+  <button mat-button  cdkFocusInitial></button>
+</div>
+
+
+  

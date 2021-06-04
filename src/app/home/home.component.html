@@ -1,0 +1,97 @@
+<!-- <a routerLink="employees">Employee List</a>&nbsp;&nbsp;<a routerLink="add">Add Employee</a> -->
+<h1>Employee Management System</h1>
+<!-- <a href="#" (click)="getEmployees()">Employee List</a>&nbsp;&nbsp;<a href="#" (click) = "showAdd()">Add Employee</a> -->
+<button class="btn btn-success" (click)="getEmployees()">Employee List</button>&nbsp;&nbsp;<button class="btn btn-success" (click)="showAdd()">Add Employee</button>
+<div *ngIf="flag">
+<p>Filter by:</p>
+<input type="text" (keyup)="onKeyUp($event)"><br />
+<div>Total numbers of employees : {{count}}</div>
+<div class="container">
+<table class="table"> 
+    <tr>
+        <td>Emp Id</td>
+        <td>Name</td>
+        <td>Location</td>
+        <td>Email</td>
+        <td>Mobile</td>
+        <td>Edit</td>
+        <td>Delete</td>
+    </tr>
+    <tr *ngFor="let item of items; let i = index"> 
+        <td><a href="ems" (click)="showDetail(item.id);false">{{item.id}}</a></td>
+        <td>{{item.name}} </td>
+        <td>{{item.location}} </td>
+        <td>{{item.email}} </td>
+        <td>{{item.mobile}}</td>
+        <td><button class="btn btn-success" (click)="showUpdate(item.id)">Update</button></td>
+        <td><button class="btn btn-warning" (click)="deleteEmp(item.id)">Delete</button></td>
+    </tr>
+</table>
+</div>
+</div>
+
+<div class="container" *ngIf="addFlag">
+<form (ngSubmit)="!f.invalid && common()" #f="ngForm">
+<p *ngIf="empid === -1; else create">Add Employee</p>
+<ng-template #create><p>Update Employee</p></ng-template>
+<div class="container">
+<table class="table">
+    <tr>
+<td><label for="employeename">Employee Name</label></td>
+<td><input type="text" name="name" [(ngModel)] = "employeename" required pattern="[a-zA-Z]+"></td>
+    </tr>
+    <tr>
+<td><label for="location">Location</label></td>
+<td>
+    <select name="location" [(ngModel)] = "location" required>
+        <option value="Pune">Pune</option>
+        <option value="Banglore">Bangalore</option>
+        <option value="Hydeabad">Hyderabad</option>
+        <option value="Chenni">Chennai</option>
+    </select>
+</td>
+    </tr>
+    <tr>
+<td><label for="email">E-Mail</label></td>
+<td><input type="text" name="email" [(ngModel)] = "email" required
+    pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"></td>
+    </tr>
+    <tr>
+<td><label for="mobile">Mobile</label></td>
+<td><input type="text" name="mobile" [(ngModel)] = "mobile" required pattern="\d{10}"></td>
+    </tr>  
+</table>
+<hr>
+    <button type="submit" class="btn btn-success" [disabled]="!f.valid" *ngIf="empid === -1">Submit</button>
+    <button type="submit" class="btn btn-success" [disabled]="!f.valid" *ngIf="empid !== -1">Submit</button>
+    &nbsp;&nbsp;<button (click)=cancel() class="btn btn-success">Cancel</button>
+</div>
+</form>
+</div>
+
+<div class="container" *ngIf="show">
+<table class="table">
+    <tr>
+<td><label for="empid">Employee Id</label></td>
+<td><label>{{empid}}</label></td>
+    </tr>    
+    <tr>
+<td><label for="employeename">Employee Name</label></td>
+<td><label>{{employeename}}</label></td>
+    </tr>
+    <tr>
+<td><label for="location">Location</label></td>
+<td><label>{{location}}</label></td>
+    </tr>
+    <tr>
+<td><label for="email">E-Mail</label></td>
+<td><label>{{email}}</label></td>
+    </tr>
+    <tr>
+<td><label for="mobile">Mobile</label></td>
+<td><label>{{mobile}}</label></td>
+    </tr>
+</table>
+<hr>
+    <button (click)=cancel() class="btn btn-success">OK</button>
+</div>

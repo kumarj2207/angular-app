@@ -1,0 +1,168 @@
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav mode="side" opened>
+    <div class="profile-info">
+      <div class="user-img">
+          <img src="../assets/img/Rajeev_White.jpg" alt="user" />
+      </div>
+      <p>{{userName}}</p>
+    </div>
+      <mat-nav-list>
+          <a mat-list-item [routerLink]="['/newregis']">New Registration</a>
+          <a mat-list-item [routerLink]="['/batch']">Batches</a>
+      </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+  <mat-toolbar>
+      <button (click)="sidenav.toggle()" mat-icon-buttom><i class="material-icons">swap_horiz</i></button>
+      <span class="example-fill-remaining-space"></span>
+      <a mat-list-item [routerLink]="['/']" (click)="logout()">Logout</a>
+  </mat-toolbar>
+  <div class="main-cont">
+    <app-error [error]="error" [errorMessage]="errorMessage"></app-error>
+    <div *ngIf="addFlag">
+      <form [formGroup]="motivatorForm" (ngSubmit)="addMotivator()">
+      <table>
+      <tbody>
+        <tr>
+          <td>Name</td>
+  	      <td><input type="text" formControlName="fullName" /></td>
+        </tr>
+        <tr>
+          <td>Age</td>
+          <td><input type="text" formControlName="age"/></td>
+        </tr>
+        <tr>
+          <td>Gender</td>
+          <td>
+            <input type="radio" value="M" formControlName = "gender">Male
+            <input type="radio" value="F" formControlName="gender">Female
+          </td>
+        </tr>
+        <tr>
+          <td >Mobile</td>
+  	      <td ><input type="text" formControlName="mobile"/></td>
+        </tr>
+        <tr>
+          <td >Address</td>
+          <td ><input type="text" formControlName="address"/></td>
+        </tr>
+        <tr>
+          <td >City</td>
+          <td ><input type="text" formControlName="city"/></td>    
+        </tr>
+        <tr>
+          <td >State</td>
+  	      <td ><input type="text" formControlName="state"/></td>
+        </tr>
+        <tr>
+          <td >Country</td>
+          <td ><input type="text" formControlName="country"/></td>
+        </tr>
+        <tr>
+          <td >Pincode</td>
+          <td ><input type="text" formControlName="pinCode"/></td>    
+        </tr>            
+      </tbody>
+      </table>
+      <button type="submit" mat-raised-button color="primary">Submit</button>&nbsp;
+      <button type="submit" mat-raised-button color="primary" (click)="cancel()">Cancel</button>
+      </form>
+    </div>
+    <button mat-raised-button color="primary" (click)="showAdd()">Add Motivator</button><br />
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+    </mat-form-field>
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="fullName">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let reg"> {{reg.fullName}}({{reg.gender}})</td>
+      </ng-container>                
+    
+      <ng-container matColumnDef="age">
+        <th mat-header-cell *matHeaderCellDef>Age</th>
+        <td mat-cell *matCellDef="let reg"> {{reg.age}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="mobile">
+        <th mat-header-cell *matHeaderCellDef> Mobile </th>
+        <td mat-cell *matCellDef="let reg"> {{reg.mobile}} </td>
+      </ng-container>        
+
+      <ng-container matColumnDef="referralId">
+        <th mat-header-cell *matHeaderCellDef> Referral Id </th>
+        <td mat-cell *matCellDef="let reg"> {{reg.referralId}} </td>
+      </ng-container>       
+    
+      <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef> Address </th>
+        <td mat-cell *matCellDef="let reg"> {{reg.address}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="city">
+        <th mat-header-cell *matHeaderCellDef> City </th>
+        <td mat-cell *matCellDef="let reg"> {{reg.city}} </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="state">
+        <th mat-header-cell *matHeaderCellDef> State </th>
+        <td mat-cell *matCellDef="let reg"> {{reg.state}} </td>
+      </ng-container>        
+    
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef> Role </th>
+        <td mat-cell *matCellDef="let reg"> {{reg.role}} </td>
+      </ng-container> 
+
+      <ng-container matColumnDef="batch">
+        <th mat-header-cell *matHeaderCellDef> Batch </th>
+        <td mat-cell *matCellDef="let reg"> {{reg.batchName}} </td>
+      </ng-container> 
+      
+      <!-- Action Column -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let reg"> 
+          <button mat-raised-button color="warn" (click)="delete(reg.referralId)">Delete</button>
+          <button mat-raised-button color="accent" (click)="sendMessage()">Message</button>
+          <button mat-raised-button color="primary" (click)="getChallengerMeasurement(reg.referralId)" *ngIf="reg.role == 'CHALLENGER'">Measurement</button>
+          <button mat-raised-button color="accent" *ngIf="reg.role == 'CHALLENGER'">Daily Log</button>
+        </td>
+      </ng-container>        
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="10">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+  <hr />
+  <h1>Challenger's Measurements</h1>
+  <app-view-measurement [measurements]="measurements"></app-view-measurement>
+  <hr />
+  <h1>Challenger's Daily Log</h1>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+
+
+<header>
+  <nav class="navbar navbar-expand-md  bg-dark">
+      <ul class="navbar-nav">
+        <li><a [routerLink]="['/admindashboard/newregis']" class="btn btn-primary">New Registration</a></li>
+        <li><a [routerLink]="['/admindashboard/batch']" class="btn btn-primary">Batches</a></li>
+      </ul>
+
+      <ul class="navbar-nav navbar-collapse justify-content-end">
+          <li><a [routerLink]="['/']" class="navbar-link navbar-brand" (click)="logout()">Logout</a></li>
+        </ul>
+  </nav>
+</header>  
+<h6 style="align-self: center;"> Welcome {{userName}}</h6>
+<app-error [error]="error" [errorMessage]="errorMessage"></app-error>
+

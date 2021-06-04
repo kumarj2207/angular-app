@@ -1,0 +1,158 @@
+<h1>New Registration</h1>
+
+<div class="container" *ngIf="! success">
+    <form (ngSubmit)="!f.invalid && submit()" #f="ngForm">
+    <div class="container">
+    <table class="table">
+        <tr>
+    <td><label>Full Name</label></td>
+    <td><input type="text" name="name" class="form-control" [(ngModel)] = "fullName" required 
+                pattern="^[a-zA-Z]+(\s[a-zA-Z]+)?$"></td>
+        </tr>
+        <tr>
+            <td><label>Age</label></td>
+            <td><input type="text" name="age" class="form-control" [(ngModel)] = "age" maxlength="2"
+                        required pattern="^[1-9][0-9]$"></td>
+                </tr>        
+        <tr>
+        <tr>
+            <td><label>Gender</label></td>
+            <td>
+                <input type="radio" name="gender" id="mgender" value="M" [(ngModel)] = "gender" (change)="togglePregnancy($event)">Male
+                <input type="radio" name="gender" id="fgender" value="F" [(ngModel)] = "gender" (change)="togglePregnancy($event)">Female
+            </td>
+        </tr>        
+
+        <tr *ngIf="pregnancyFlag">            
+            <td><label>Pregnant Status</label></td>
+            <td>
+                <input type="radio" name="pregnantStatus" value='yes' [(ngModel)] = "pregnantStatus">Yes
+                <input type="radio" name="pregnantStatus" value='no' [(ngModel)] = "pregnantStatus">No
+            </td>
+        </tr>         
+
+        <tr>
+    <td><label for="email">E-Mail</label></td>
+    <td><input type="text" name="email" [(ngModel)] = "email" required
+        pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"></td>
+        </tr>
+        <tr>
+    <td><label for="mobile">Mobile</label></td>
+    <td><input type="tel" name="mobile" [(ngModel)] = "mobile" required pattern="\d{10}"></td>
+        </tr>  
+
+    <tr>            
+        <td><label>Adderess</label></td>
+        <td>
+            <input type="text" name="address" [(ngModel)] = "address">
+        </td>
+    </tr>
+
+    <tr>            
+        <td><label>City</label></td>
+        <td>
+            <input type="text" name="city" [(ngModel)] = "city">
+        </td>
+    </tr>
+
+    <tr>            
+        <td><label>State</label></td>
+        <td>
+            <input type="text" name="state" [(ngModel)] = "state">
+        </td>
+    </tr>
+    
+    <tr>            
+        <td><label>Country</label></td>
+        <td>
+            <input type="text" name="country" [(ngModel)] = "country">
+        </td>
+    </tr>    
+
+    <tr>            
+        <td><label>Pincode</label></td>
+        <td>
+            <input type="text" name="pinCode" [(ngModel)] = "pinCode">
+        </td>
+    </tr>    
+
+    <tr>            
+        <td><label>Height (in centi meters)</label></td>
+        <td>
+            <input type="text" name="height" [(ngModel)] = "height" maxlength="6"
+                required placeholder="e.g. 123.45"
+                pattern="^[1-9][0-9]([0-9])?(\.[0-9][0-9])?$">
+        </td>
+    </tr>
+    
+    <tr>            
+        <td><label>Weight (in kilo grams)</label></td>
+        <td>
+            <input type="text" name="weight" [(ngModel)] = "weight" maxlength="6"
+                required placeholder="e.g. 123.45"
+                pattern="^[1-9][0-9]([0-9])?(\.[0-9][0-9])?$">
+        </td>
+    </tr>  
+    
+    <tr>            
+        <td><label>Reason</label></td>
+        <td>
+            <input type="text" name="reason" [(ngModel)] = "reason">
+        </td>
+    </tr>
+    
+    <tr>            
+        <td><label>Any Existing Medical Conditions</label></td>
+        <td>
+            <input type="radio" name="anyExistingMedicalConditions" value="true" [(ngModel)] = "anyExistingMedicalConditions">Yes
+            <input type="radio" name="anyExistingMedicalConditions" value="" [(ngModel)] = "anyExistingMedicalConditions">No
+        </td>
+    </tr>
+    
+    <tr>            
+        <td><label>Any Existing Dietary Restrictions</label></td>
+        <td>
+            <input type="radio" name="anyExistingDietaryRestrictions" value="true" [(ngModel)] = "anyExistingDietaryRestrictions">Yes
+            <input type="radio" name="anyExistingDietaryRestrictions" value="" [(ngModel)] = "anyExistingDietaryRestrictions">No
+        </td>
+    </tr>
+       
+    <tr>            
+            <td><label>Dietary Custom</label></td>
+            <td>
+                <select name="dietaryCustom" class="form-control" [(ngModel)] = "dietaryCustom">
+                    <option value="VEG">Veg</option>
+                    <option value="NONVEG">Non Veg</option>
+                    <option value="VEGAN">Vegan</option>
+                </select>
+            </td>
+    </tr>        
+
+    <tr>            
+        <td><label>Referral Id</label></td>
+        <td>
+            <input type="number" name="referralId" value="true" [(ngModel)] = "referralId">
+        </td>
+    </tr>    
+    </table>
+    <hr>
+        <button type="submit" class="btn btn-success" [disabled]="!f.valid">Submit</button>
+        &nbsp;&nbsp;<button (click)=cancel() class="btn btn-success">Cancel</button>
+    </div>
+    </form>
+</div>
+
+<div class="container" *ngIf="success">
+    <div class="alert alert-success jumbotron">
+        <p>Thanks for Registration.</p>
+        <p>You will get notificatio on <strong>{{email}}</strong>.</p>
+    </div>
+    <button (click)=cancel() class="btn btn-success">OK</button>
+</div>
+
+<div class="container" *ngIf="error">
+    <div class="alert alert-danger jumbotron">
+         <h1>Oops !!!</h1>
+        <p>Some <strong>Problem</strong> occured.</p>
+    </div>
+</div>

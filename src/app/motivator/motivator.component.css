@@ -1,0 +1,36 @@
+.example-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: chartreuse;
+  }
+  
+  .example-fill-remaining-space {
+    flex: 1 1 auto;
+    }
+  
+  .mat-drawer-side {
+      border-right: none;
+      background: #2d323c;
+      color: #fff;
+      min-width: 250px;
+  }
+  
+  
+  .example-sidenav {
+    padding: 20px;
+  }
+  
+  .main.cont {
+      padding: 20px;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+
+  
+  

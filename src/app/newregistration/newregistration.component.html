@@ -1,0 +1,110 @@
+<mat-sidenav-container class="example-container">
+  <mat-sidenav-content>
+  <mat-toolbar>
+      <button (click)="back()" mat-icon-buttom><i class="material-icons">home</i></button>
+      <span class="example-fill-remaining-space"></span>
+      <h2>Applications for Registration</h2>
+  </mat-toolbar>
+  <div class="main-cont">
+    <app-error [error]="error" [errorMessage]="errorMessage"></app-error>
+    <div *ngIf="showReg">
+      <table mat-table [dataSource]="applicant.registrations" class="mat-elevation-z8">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> <b>Name</b> </th>
+          <td mat-cell *matCellDef="let reg"> {{reg.fullName}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="gender">
+          <th mat-header-cell *matHeaderCellDef> Gender </th>
+          <td mat-cell *matCellDef="let reg"> {{reg.gender}} </td>
+        </ng-container>        
+
+        <ng-container matColumnDef="age">
+          <th mat-header-cell *matHeaderCellDef> Age </th>
+          <td mat-cell *matCellDef="let reg"> {{reg.age}} </td>
+        </ng-container>
+        
+        <!-- Height Column -->
+        <ng-container matColumnDef="height">
+          <th mat-header-cell *matHeaderCellDef> Height </th>
+          <td mat-cell *matCellDef="let reg"> {{reg.height | number : '1.1-2' : locale}} </td>
+        </ng-container>        
+      
+        <!-- Weight Column -->
+        <ng-container matColumnDef="weight">
+          <th mat-header-cell *matHeaderCellDef> Weight </th>
+          <td mat-cell *matCellDef="let reg"> {{reg.weight | number : '1.1-2' : locale}} </td>
+        </ng-container>
+
+        <!-- BMI Column -->
+        <ng-container matColumnDef="bmi">
+          <th mat-header-cell *matHeaderCellDef> BMI </th>
+          <td mat-cell *matCellDef="let reg"> {{reg.bmi}} </td>
+        </ng-container>
+        
+        <!-- Joining Column -->
+        <ng-container matColumnDef="joinReason">
+          <th mat-header-cell *matHeaderCellDef> Joining Reason </th>
+          <td mat-cell *matCellDef="let reg"> {{reg.reason}} </td>
+        </ng-container>        
+      
+        <!-- Medical Status Column -->
+        <ng-container matColumnDef="medCondition">
+          <th mat-header-cell *matHeaderCellDef> Medical Status </th>
+          <td mat-cell *matCellDef="let reg"> {{reg.anyExistingMedicalConditions}} </td>
+        </ng-container>
+
+        <!-- Pregnent Column -->
+        <ng-container matColumnDef="pregnantStatus">
+          <th mat-header-cell *matHeaderCellDef> Pregnent </th>
+          <td mat-cell *matCellDef="let reg"> {{reg.pregnantStatus}} </td>
+        </ng-container>  
+        
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let reg"> 
+            <button mat-raised-button color="primary" (click)="showApproveReject(reg.email, true)">Approve</button>
+            &nbsp;<button mat-raised-button color="warn" (click)="showApproveReject(reg.email, false)">Reject</button>
+          </td>
+        </ng-container>        
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+    
+    <div class="container" *ngIf="reaonFlag">
+      <form (ngSubmit)="!f.invalid && approveOrReject()" #f="ngForm">
+      <div class="container">
+      <h1 *ngIf="approved">Please provide a batch to {{email}}</h1>
+      <h1 *ngIf="!approved">Please provide rejection reason to {{email}}</h1>
+      <table class="table">
+        <tr *ngIf="approved">
+          <td><label>Batch</label></td>
+          <td>
+            <select name="bid" class="form-control" [(ngModel)]="bid" [disabled]="!approved">
+              <option value={{batch.batchId}} *ngFor="let batch of applicant.batches">{{batch.name}}</option>
+            </select></td>
+        </tr>
+          <tr *ngIf="!approved">
+      <td><label>Rejection Reason</label></td>
+      <td><input type="text" name="reason" class="form-control" [(ngModel)] = "rejectionReason"></td>
+          </tr>
+          <tr>
+    
+      </table>
+      <hr>
+          <button type="submit" class="btn btn-success" [disabled]="!f.valid">Submit</button>
+          &nbsp;&nbsp;<button (click)=cancel() class="btn btn-success">Cancel</button>
+      </div>
+      </form>
+      </div>
+  </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

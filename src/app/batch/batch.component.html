@@ -1,0 +1,75 @@
+<mat-sidenav-container class="example-container">
+  <mat-sidenav-content>
+  <mat-toolbar>
+      <button (click)="back()" mat-icon-buttom><i class="material-icons">home</i></button>
+      <span class="example-fill-remaining-space"></span>
+      <h2>Batches</h2>
+  </mat-toolbar>
+  <div class="main-cont">
+    <app-error [error]="error" [errorMessage]="errorMessage"></app-error>
+    <div *ngIf="showBat">
+      <button mat-raised-button color="primary" (click)="showAddBatchForm('add', 0)">Add</button>
+      <div *ngFor="let b of batchResponseVO; let i = index"
+            (click)="getGroups(b.batchId)"
+            style="background-color: aquamarine;">{{b.name}}
+          
+          <div *ngIf="b.batchId == divIdToBeDisplayed">            
+            <table>
+              <thead class="thead-dark">
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th colspan="2">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let g of groupResponseVO; let i = index">
+                  <td>{{i+1}}</td>
+                  <td>{{g.name}}</td>
+                  <td>
+                    <button mat-raised-button color="primary" (click)="challengers(g.batchId)">Challenger</button>&nbsp;
+                    <button mat-raised-button color="primary" (click)="motivators(g.batchId)">Motivator</button>&nbsp;
+                    <button mat-raised-button color="primary" >Message</button>&nbsp;
+                    <button mat-raised-button color="primary" >Diet Plan</button>&nbsp;
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+    </div>  
+    <div *ngIf="showAddBatch">
+      <div class="panel-heading">
+        <h2>Add Batch</h2>
+      </div>
+      <form [formGroup]="addBatchForm" (ngSubmit)="addBatch()">
+        <div class="container">
+        <table class="table">
+        <tbody>
+          <tr>
+            <td><label>Name</label></td>
+            <td><input type="text" class="form-control" formControlName="name"></td>
+          </tr>
+          <tr>
+            <td><label>Parent</label></td>
+            <td>
+              <mat-select name="parentBatch" formControlName="parentBatch">
+                <mat-option value="" selected>--Select--</mat-option>
+                <mat-option *ngFor="let b of batchResponseVO"
+                  [disabled]="b.parentBatchId" value={{b.batchId}} [selected]>
+                  {{b.name}}
+                </mat-option>
+              </mat-select>
+            </td>
+          </tr>
+        </tbody>
+        </table>
+        <hr>
+            <button type="submit" mat-raised-button color="primary">Add</button>
+            &nbsp;&nbsp;<button (click)=cancel() mat-raised-button color="warn">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,36 @@
+<div class="container">
+    <form (ngSubmit)="!f.invalid && checkEligibility(f)" #f="ngForm">
+    <table class="table">
+        <tr>
+    <td><label>PAN Number</label>&nbsp;
+        <input type="text" id="pan" name="pan" class="form-control" [(ngModel)] = "pan" required="required" pattern="^[A-Za-z]{5}\d{4}[A-Za-z]$">
+    </td>
+        </tr>
+        <tr><td><button type="submit" class="btn btn-success" [disabled]="!f.valid">Check</button></td></tr>
+        <tr><td><div class="alert alert-danger" *ngIf="f.dirty && f.invalid">Enter valid PAN Number</div></td></tr>
+    </table>
+    </form>
+</div>
+
+<div *ngIf="credit">
+<div class="container" *ngIf="eligible">
+    <div class="alert alert-success jumbotron">
+       <h1>Hey !!!</h1>
+       <p>You are <strong> Eligible</strong> for Credit Card.</p>
+    </div>
+</div>
+
+<div class="container" *ngIf="! eligible">
+    <div class="alert alert-warning jumbotron">
+        <h1>Sorry !!!</h1>
+        <p>You are <strong>not Eligible</strong> for Credit Card.</p>
+    </div>
+</div>
+</div>
+
+<div class="container" *ngIf="error">
+    <div class="alert alert-danger jumbotron">
+        <h1>Oops !!!</h1>
+        <p>Some <strong>Problem</strong> occured.</p>
+    </div>
+</div>

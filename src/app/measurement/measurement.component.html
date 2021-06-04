@@ -1,0 +1,97 @@
+<app-error [error]="error" [errorMessage]="errorMessage"></app-error>
+    <div class="container">
+      <table class="table">
+      <tbody>       
+        <tr>
+          <td><button mat-raised-button color="primary" (click)="openDialog()">Upload File</button></td>
+        </tr>
+      </tbody>
+      </table>
+    </div>
+    <div class="container">
+      <p><strong>Measurements</strong></p>
+      <form [formGroup]="measurementForm" (ngSubmit)="addMeasurement()">
+      <table class="table">
+      <tbody>
+        <tr>
+          <td>Biceps(in centi meters)</td>
+  	      <td><input type="text" formControlName="biceps" /></td>
+        </tr>
+        <tr>
+          <td>Chest(in centi meters)</td>
+          <td><input type="text" formControlName="chest"/></td>
+        </tr>
+        <tr>
+          <td>Forearms(in centi meters)</td>
+          <td><input type="text" formControlName="forearms"/></td>
+        </tr>
+        <tr>
+          <td >Height(in centi meters)</td>
+  	      <td ><input type="text" formControlName="height"/></td>
+        </tr>
+        <tr>
+          <td >Legs(in centi meters)</td>
+          <td ><input type="text" formControlName="legs"/></td>
+        </tr>
+        <tr>
+          <td >Shoulders(in centi meters)</td>
+          <td ><input type="text" formControlName="shoulders"/></td>    
+        </tr>
+        <tr>
+          <td >Thighs(in centi meters)</td>
+  	      <td ><input type="text" formControlName="thighs"/></td>
+        </tr>
+        <tr>
+          <td >Waist(in centi meters)</td>
+          <td ><input type="text" formControlName="waist"/></td>
+        </tr>
+        <tr>
+          <td >Weight(in kilo grams)</td>
+          <td ><input type="text" formControlName="weight"/></td>    
+        </tr>            
+      </tbody>
+      </table>
+      <button type="submit" mat-raised-button color="primary">Submit</button>
+      </form>
+    </div>
+   
+  <ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Upload Your Measurements</h4>
+    <button (click)="modal.dismiss('Cross click')">×</button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <div *ngIf="currentFile" class="progress">
+        <div
+          class="progress-bar progress-bar-info progress-bar-striped"
+          role="progressbar"
+          attr.aria-valuenow="{{ progress }}"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          [ngStyle]="{ width: progress + '%' }"
+        >
+          {{ progress }}%
+        </div>
+      </div>
+      <table class="table">
+        <tr>
+          <td>If you want, you can download sample</td>
+          <td>
+            <button class="btn btn-primary" (click)="download()">Excel sheet</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Please upload excel sheet&nbsp;<input type="file" (change)="selectFile($event)"/></td>
+          <td>
+            <button  class="btn btn-primary" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
+          </td>
+        </tr>          
+      </table>
+      <strong>{{ message }}</strong>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button (click)="modal.close('Save click')">OK</button>
+  </div>
+  </ng-template>

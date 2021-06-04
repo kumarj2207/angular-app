@@ -1,0 +1,138 @@
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav mode="side" opened>
+    <div class="profile-info">
+      <div class="user-img">
+          <img src="../assets/img/Rajeev_White.jpg" alt="user" />
+      </div>
+      <p>{{user.fullName}}</p>
+    </div>
+      <mat-nav-list>
+          <a mat-list-item [routerLink]="['/']" (click)="logout()">Logout</a>
+          {{user.batchName}}
+      </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+  <mat-toolbar>
+      <button (click)="sidenav.toggle()" mat-flat-button mat-icon-button><i class="material-icons">swap_horiz</i></button>
+      <span class="example-fill-remaining-space"></span>
+      <button [matMenuTriggerFor]="appMenu" mat-flat-button mat-icon-button><i class="material-icons">menu</i></button>
+  </mat-toolbar>
+  <div class="main-cont">
+    <div *ngIf="showChangePasswordDiv">
+      <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
+        <mat-form-field appearance="fill">
+          <mat-label>Enter old password</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="oldPassword">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Enter new password</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="newPassword" placeholder="min. 6 " maxlength="12">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Confirm new password</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmNewPassword" placeholder="min. 6 " maxlength="12">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <button type="submit" mat-raised-button color="warn">Submit</button>&nbsp;
+        <button type="reset" (click)="onReset()" mat-raised-button color="accent">Cancel</button>
+      </form>
+    </div>
+    <div *ngIf="showProfileDiv">
+      <form [formGroup]="profileForm" (ngSubmit)="editProfile()">
+          <ol>
+            <li>
+            <mat-form-field appearance="fill">
+              <mat-label>Full Name</mat-label>
+              <input matInput formControlName="fullName" [(value)]="user.fullName">
+            </mat-form-field>
+            </li>
+            <li>
+              <mat-label>Gender</mat-label>
+              <mat-radio-group name="gender" formControlName="gender">
+                <mat-radio-button value="M">Male</mat-radio-button>&nbsp;
+                <mat-radio-button value="F">Female</mat-radio-button>
+              </mat-radio-group>
+              <mat-error *ngIf="profileForm.hasError('required', 'gender')">Gender is required</mat-error>
+            </li>
+            <li>
+            <mat-form-field appearance="fill">
+              <mat-label>Age</mat-label>
+              <input matInput formControlName="age">
+            </mat-form-field>            
+            </li>
+            <li>
+            <mat-form-field appearance="fill">
+              <mat-label>Mobile</mat-label>
+              <input matInput formControlName="mobile">
+            </mat-form-field>
+            <mat-error *ngIf="profileForm.hasError('required', 'mobile')">Mobile is required</mat-error>
+            <mat-error *ngIf="profileForm.getError('pattern', 'mobile') as error">Mobile pattern is</mat-error>
+            </li>
+            <li>
+            <mat-form-field appearance="fill">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" readonly>
+            </mat-form-field>            
+            </li>
+            <li>
+            <mat-form-field appearance="fill">
+              <mat-label>Batch</mat-label>
+              <input matInput formControlName="batch" readonly>
+            </mat-form-field>            
+            </li>            
+            <li>
+            <mat-form-field appearance="fill">
+              <mat-label>Address</mat-label>
+              <input matInput formControlName="address">
+            </mat-form-field>            
+            </li>
+            <li>
+            <mat-form-field appearance="fill">
+              <mat-label>City</mat-label>
+              <input matInput formControlName="city">
+            </mat-form-field>            
+            </li>
+            <li>
+            <mat-form-field appearance="fill">
+              <mat-label>State</mat-label>
+              <input matInput formControlName="state">
+            </mat-form-field>            
+            </li>
+            <li>
+            <mat-form-field appearance="fill">
+              <mat-label>Country</mat-label>
+              <input matInput formControlName="country">
+            </mat-form-field>            
+            </li>
+            <li>
+            <mat-form-field>
+              <mat-label>Pincode</mat-label>
+              <input matInput formControlName="pinCode" maxlength="6">
+            </mat-form-field>            
+            </li>
+          </ol>
+        <button type="submit" mat-raised-button color="warn">Submit</button>&nbsp;
+        <button type="reset" (click)="profileReset()" mat-raised-button color="accent">Cancel</button>
+      </form>
+    </div>
+    <mat-tab-group animationDuration="0ms">
+      <mat-tab label="Message">All messages are here.</mat-tab>
+      <mat-tab label="View Measurements"><app-view-measurement [measurements]="measurements"></app-view-measurement></mat-tab>
+      <mat-tab label="Measurement"><app-measurement (childFunction)="parentFunction($event)"></app-measurement></mat-tab>
+      <mat-tab label="Daily Logs">Daily Logs</mat-tab>
+    </mat-tab-group>
+  </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<mat-menu #appMenu="matMenu">
+  <button mat-menu-item (click)="showChangePassword()">change password</button>
+  <button mat-menu-item (click)="showEditProfile()">edit profile</button>
+</mat-menu>
