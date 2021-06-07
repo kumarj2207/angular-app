@@ -7,17 +7,18 @@ const app = express();
 
 // add this code
 //const whitelist = ['https://online-diet-app.herokuapp.com']; // list of allow domain
-const whitelist = ['https://myolds.herokuapp.com']; // list of allow domain
+const whitelist = ['https://online-diet-app.herokuapp.com','https://myolds.herokuapp.com']; // list of allow domain
 
 const corsOptions = {
     origin: function (origin, callback) {
+        console.log(origin);
         if (!origin) {
             return callback(null, true);
         }
 
         if (whitelist.indexOf(origin) === -1) {
             var msg = 'The CORS policy for this site does not ' +
-                'allow access from the specified Origin.';
+                'allow access from the specified Origin. ' + origin;
             return callback(new Error(msg), false);
         }
         return callback(null, true);
