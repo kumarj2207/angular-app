@@ -6,8 +6,8 @@ const cors = require('cors');
 const app = express();
 
 // add this code
-const whitelist = ['https://online-diet-app.herokuapp.com']; // list of allow domain
-//const whitelist = ['https://myolds.herokuapp.com']; // list of allow domain
+//const whitelist = ['https://online-diet-app.herokuapp.com']; // list of allow domain
+const whitelist = ['https://myolds.herokuapp.com']; // list of allow domain
 
 const corsOptions = {
     origin: function (origin, callback) {
