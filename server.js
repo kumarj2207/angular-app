@@ -11,7 +11,7 @@ const whitelist = ['https://online-diet-app.herokuapp.com','https://myolds.herok
 
 const corsOptions = {
     origin: function (origin, callback) {
-        console.log(origin);
+        console.log("RAJEEV  " + origin);
         if (!origin) {
             return callback(null, true);
         }
@@ -20,6 +20,8 @@ const corsOptions = {
             var msg = 'The CORS policy for this site does not ' +
                 'allow access from the specified Origin. ' + origin;
             return callback(new Error(msg), false);
+        } else {
+            console.log("SANJEEV  " + origin);
         }
         return callback(null, true);
     }
