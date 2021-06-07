@@ -26,6 +26,7 @@
     "@angular/router": "~10.1.0",
     "@ng-bootstrap/ng-bootstrap": "^8.0.0",
     "angularjs-datepicker": "^2.1.23",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "file-saver": "^2.0.5",
     "path": "^0.12.7",
