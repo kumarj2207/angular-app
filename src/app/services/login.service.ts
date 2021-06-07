@@ -19,8 +19,8 @@ const cudOptions = { headers: new HttpHeaders({
   providedIn: 'root'
 })
 export class LoginService {
-  #loginUrl = 'http://localhost:9090/assignment';
-  loginUrl = 'https://myolds.herokuapp.com/assignment';
+  //loginUrl = 'http://localhost:9090/assignment';
+  loginUrl = '/assignment';
   constructor(private http: HttpClient,
     private authService: AuthService) {}
 
