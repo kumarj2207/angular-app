@@ -7,9 +7,9 @@ const app = express();
 
 // add this code
 //const whitelist = ['https://online-diet-app.herokuapp.com']; // list of allow domain
-//const whitelist = ['https://myolds.herokuapp.com']; // list of allow domain
+const whitelist = ['https://myolds.herokuapp.com']; // list of allow domain
 
-/*const corsOptions = {
+const corsOptions = {
     origin: function (origin, callback) {
         if (!origin) {
             return callback(null, true);
@@ -22,11 +22,11 @@ const app = express();
         }
         return callback(null, true);
     }
-}*/
+}
 
 // end 
-//app.use(cors(corsOptions));
-app.use(cors());
+app.use(cors(corsOptions));
+//app.use(cors());
 // Serve only the static files form the dist directory
 app.use(express.static('./dist/my-dream-app'));
 
