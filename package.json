@@ -1,6 +1,7 @@
 {
   "name": "my-dream-app",
   "version": "0.0.0",
+  "proxy": "https://myolds.herokuapp.com",
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
@@ -8,8 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "heroku-postbuild": "ng build --prod",
-    "proxy": "https://myolds.herokuapp.com"
+    "heroku-postbuild": "ng build --prod"
   },
   "private": true,
   "dependencies": {
